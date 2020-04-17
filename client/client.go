@@ -10,7 +10,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/binhgo/foosee/server"
+	"github.com/binhgo/foosee/core"
 	"github.com/gorilla/websocket"
 )
 
@@ -87,7 +87,7 @@ func main() {
 				Ready: true,
 			}
 
-			req := server.Request{
+			req := core.Request{
 				Action: "GET-ORDER",
 				Data:   dat,
 			}
