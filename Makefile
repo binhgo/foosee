@@ -3,4 +3,4 @@ build:
 	go mod vendor
 	go mod tidy
 	go vet
-	go build -mod=vendor -o=exe
+	go env GOOS=darwin build -mod=vendor -o=exe
