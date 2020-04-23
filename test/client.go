@@ -81,15 +81,18 @@ func main() {
 
 			// conn.WriteMessage(websocket.TextMessage, []byte(fmt.Sprintf("Hello from conn %v", i)))
 
-			dat := PingMsg{
-				Name:  "Huynh Ngoc Binh",
-				Age:   30,
-				Ready: true,
+			data := Order{
+				OrgCode:   "ghn",
+				OrderCode: "O112233",
+				ClientID:  "C1234",
+				LoadedBy:  "Binh",
+				UpdatedBy: "Vu",
+				Version:   2,
 			}
 
 			req := core.Request{
-				Action: "GET-ORDER",
-				Data:   dat,
+				Action: "PUT-ORDER",
+				Data:   data,
 			}
 
 			by, _ := json.Marshal(req)
@@ -99,8 +102,13 @@ func main() {
 	}
 }
 
-type PingMsg struct {
-	Name  string
-	Age   int
-	Ready bool
+type Order struct {
+	OrgCode      string `json:"orgCode" bson:"org_code,omitempty"`
+	OrderCode    string `json:"orderCode" bson:"order_code,omitempty"`
+	ExternalCode string `json:"externalCode" bson:"external_code,omitempty"`
+	OrderID      string `json:"orderId" bson:"order_id,omitempty"`
+	ClientID     string `json:"clientId" bson:"client_id,omitempty"`
+	LoadedBy     string `json:"loadedBy" bson:"loaded_by,omitempty"`
+	UpdatedBy    string `json:"updatedBy" bson:"updated_by,omitempty"`
+	Version      int    `json:"version,omitempty" bson:"version,omitempty"`
 }

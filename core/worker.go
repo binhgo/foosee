@@ -11,32 +11,32 @@ import (
 type Task = func()
 
 // AppWorker ...
-type AppWorker struct {
+type Worker struct {
 	Task   Task
 	delay  int
 	period int
 }
 
 // SetTask ..
-func (worker *AppWorker) SetTask(fn Task) *AppWorker {
+func (worker *Worker) SetTask(fn Task) *Worker {
 	worker.Task = fn
 	return worker
 }
 
 // SetDelay ...
-func (worker *AppWorker) SetDelay(seconds int) *AppWorker {
+func (worker *Worker) SetDelay(seconds int) *Worker {
 	worker.delay = seconds
 	return worker
 }
 
 // SetRepeatPeriod ...
-func (worker *AppWorker) SetRepeatPeriod(seconds int) *AppWorker {
+func (worker *Worker) SetRepeatPeriod(seconds int) *Worker {
 	worker.period = seconds
 	return worker
 }
 
 // Execute ...
-func (worker *AppWorker) Execute() {
+func (worker *Worker) Execute() {
 	// delay
 	time.Sleep(time.Duration(worker.delay) * time.Second)
 
@@ -52,7 +52,7 @@ func (worker *AppWorker) Execute() {
 	os.Exit(0)
 }
 
-func (worker *AppWorker) scheduler(tick *time.Ticker) {
+func (worker *Worker) scheduler(tick *time.Ticker) {
 	for range tick.C {
 		worker.Task()
 	}
