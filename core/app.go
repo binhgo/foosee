@@ -49,12 +49,12 @@ func (app *App) OnAllDBConnected(task Task) {
 }
 
 // SetupAPIServer ...
-func (app *App) SetupAPIServer(t string) (*Server, error) {
+func (app *App) SetupAPIServer() (*Server, error) {
 
 	var sv *Server
 	sv = NewServer(-10)
 	if sv == nil {
-		return nil, errors.New("server type " + t + " is invalid (HTTP/THRIFT)")
+		return nil, errors.New("server type " + " is invalid (HTTP/THRIFT)")
 	}
 
 	app.Server = sv

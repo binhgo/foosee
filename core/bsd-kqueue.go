@@ -11,7 +11,7 @@ import (
 
 var timespec = &syscall.Timespec{
 	Sec:  0,
-	Nsec: 100000,
+	Nsec: 10000,
 }
 
 type KQueue struct {
@@ -30,7 +30,8 @@ func NewKQueue() *KQueue {
 
 	return &KQueue{
 		fd:          fd,
-		events:      make([]syscall.Kevent_t, 64),
+		events:      make([]syscall.Kevent_t, 128),
+		changes:     make([]syscall.Kevent_t, 256),
 		lock:        &sync.RWMutex{},
 		connections: make(map[uint64]net.Conn),
 	}
@@ -105,7 +106,7 @@ func (k *KQueue) Wait(timeout int64) ([]net.Conn, error) {
 	} else {
 		nev, err = syscall.Kevent(k.fd, k.changes, k.events, timespec)
 	}
-	
+
 	if err != nil && err != syscall.EINTR {
 		panic(err)
 	}
