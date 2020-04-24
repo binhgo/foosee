@@ -31,7 +31,6 @@ func NewKQueue() *KQueue {
 	return &KQueue{
 		fd:          fd,
 		events:      make([]syscall.Kevent_t, 128),
-		changes:     make([]syscall.Kevent_t, 256),
 		lock:        &sync.RWMutex{},
 		connections: make(map[uint64]net.Conn),
 	}
